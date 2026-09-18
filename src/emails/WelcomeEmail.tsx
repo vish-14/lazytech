@@ -31,15 +31,18 @@ export const WelcomeEmail = ({ name = "Builder" }: WelcomeEmailProps) => {
           <Text style={text}>
             We are preparing everything for you right now.{" "}
             <strong>
-              Further details, schedules, and access links will be shared with you very soon.
+              Further details, schedules, and dashboard access will be unlocked soon.
             </strong>
           </Text>
           <Section style={btnContainer}>
-            <Button style={button} href="https://lazytech.greatskills.co.in">
-              Go to Dashboard
+            <Button style={button} href="https://chat.whatsapp.com/GFTwEnY8pjB1zZywAHsYmq?s=cl&p=a&mlu=4">
+              Join WhatsApp Group
             </Button>
           </Section>
           <Text style={text}>Get ready to build something useful this weekend!</Text>
+          <Text style={text}>
+            Need help? Contact support at <strong>+91 85008 02243</strong> for more details.
+          </Text>
           <Text style={footer}>
             Best,
             <br />

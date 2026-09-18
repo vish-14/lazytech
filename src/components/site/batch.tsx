@@ -31,31 +31,7 @@ export function BatchBadge({ className }: { className?: string }) {
 /* --------------------------- SEAT METER --------------------------- */
 
 export function SeatMeter({ className }: { className?: string }) {
-  const { capacity, filled, remaining, full, loading } = useSeats();
-  const pct = capacity > 0 ? Math.min(filled / capacity, 1) : 0;
-
-  return (
-    <div className={className}>
-      <div className="flex items-baseline justify-between gap-4">
-        <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-graphite">
-          {loading ? "— / " : `${filled} / `}
-          {capacity} SEATS FILLED
-        </span>
-        <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-primary">
-          {full ? "BATCH 01 FULL" : `${remaining} SEATS REMAINING`}
-        </span>
-      </div>
-      <div className="mt-3 h-px w-full bg-border">
-        <motion.div
-          className="h-px origin-left bg-primary"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: pct }}
-          transition={{ duration: 0.9, ease: EASE }}
-          style={{ width: "100%" }}
-        />
-      </div>
-    </div>
-  );
+  return null;
 }
 
 /* --------------------------- COUNTDOWN --------------------------- */
