@@ -237,6 +237,7 @@ function JoinPage() {
       setBuilderNumber(result.builderNumber);
       setDone(true);
       if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
         localStorage.setItem("lazytech_paid", "true");
         if (result.builderNumber) {
           localStorage.setItem("lazytech_builder_number", String(result.builderNumber));
@@ -309,18 +310,57 @@ function JoinPage() {
                     onClick={async () => {
                       const { jsPDF } = await import("jspdf");
                       const doc = new jsPDF();
-                      doc.setFontSize(22);
-                      doc.text("LazyTech Weekend Club - Receipt", 20, 20);
+                      
+                      // Add branding header
+                      doc.setFillColor(15, 15, 15);
+                      doc.rect(0, 0, 210, 40, "F");
+                      
+                      doc.setTextColor(255, 60, 60);
+                      doc.setFont("helvetica", "bold");
+                      doc.setFontSize(24);
+                      doc.text("LAZYTECH", 20, 25);
+                      
+                      doc.setTextColor(255, 255, 255);
+                      doc.setFont("helvetica", "normal");
                       doc.setFontSize(12);
-                      doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 35);
-                      doc.text(
-                        `Builder Number: #${String(builderNumber || 0).padStart(3, "0")}`,
-                        20,
-                        45,
-                      );
-                      doc.text(`Amount Paid: INR 499.00`, 20, 55);
-                      doc.text("Description: Lazy Pass - 1 Building Year", 20, 65);
-                      doc.text("Thank you for joining!", 20, 85);
+                      doc.text("PAYMENT RECEIPT", 145, 25);
+                      
+                      // Details
+                      doc.setTextColor(50, 50, 50);
+                      doc.setFontSize(11);
+                      doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 60);
+                      doc.text(`Builder ID: #${String(builderNumber || 0).padStart(3, "0")}`, 145, 60);
+                      
+                      // Separator
+                      doc.setDrawColor(200, 200, 200);
+                      doc.line(20, 70, 190, 70);
+                      
+                      // Table header
+                      doc.setFont("helvetica", "bold");
+                      doc.text("DESCRIPTION", 20, 85);
+                      doc.text("AMOUNT", 160, 85);
+                      
+                      // Table item
+                      doc.setFont("helvetica", "normal");
+                      doc.text("Lazy Pass - 1 Building Year", 20, 95);
+                      doc.text(`INR ${BRAND.price}.00`, 160, 95);
+                      
+                      // Separator
+                      doc.line(20, 105, 190, 105);
+                      
+                      // Total
+                      doc.setFont("helvetica", "bold");
+                      doc.text("TOTAL PAID", 120, 120);
+                      doc.setTextColor(255, 60, 60);
+                      doc.setFontSize(14);
+                      doc.text(`INR ${BRAND.price}.00`, 160, 120);
+                      
+                      // Footer
+                      doc.setTextColor(150, 150, 150);
+                      doc.setFont("helvetica", "normal");
+                      doc.setFontSize(10);
+                      doc.text("Thank you for joining the club. See you this weekend.", 20, 150);
+                      
                       doc.save("lazytech-receipt.pdf");
                     }}
                     className="tap mt-6 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 font-mono text-xs uppercase tracking-[0.16em] text-background hover:bg-foreground/90"
