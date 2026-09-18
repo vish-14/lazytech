@@ -42,8 +42,22 @@ export const Route = createFileRoute("/api/razorpay/verify")({
               updated_at: new Date().toISOString(),
             })
             .eq("razorpay_order_id", razorpay_order_id)
-            .select("lead_id, name, email, phone, notes")
+            .select("lead_id, name, email, phone, notes, visitor_id, session_id, utm_link_id, product_type, last_touch_utm_source, last_touch_utm_medium, last_touch_utm_campaign")
             .maybeSingle();
+
+          if (payment) {
+            // Log payment success tracking event idempotently (or just log it, since visitor_id is non-unique)
+            supabaseAdmin.from("tracking_events").insert({
+              visitor_id: payment.visitor_id || "unknown",
+              session_id: payment.session_id || "unknown",
+              utm_link_id: payment.utm_link_id,
+              event_type: "PAYMENT_SUCCESS",
+              product_type: payment.product_type || payment.notes?.productType,
+              utm_source: payment.last_touch_utm_source,
+              utm_medium: payment.last_touch_utm_medium,
+              utm_campaign: payment.last_touch_utm_campaign,
+            }).then();
+          }
 
           if (payment?.lead_id) {
             await supabaseAdmin

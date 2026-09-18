@@ -156,17 +156,20 @@ function RootComponent() {
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   }, [pathname]);
 
-  const showMobileBar = pathname !== "/join";
+  const isBuildAiAgents = pathname === "/build-ai-agents";
+  const isAdmin = pathname.startsWith("/admin");
+  const hideGlobalUI = isBuildAiAgents || isAdmin;
+  const showMobileBar = pathname !== "/join" && !hideGlobalUI;
 
   return (
     <QueryClientProvider client={queryClient}>
       <ScrollProgress />
-      <Nav />
+      {!hideGlobalUI && <Nav />}
       <main className="pb-24 md:pb-0">
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </main>
-      <Footer />
+      {!hideGlobalUI && <Footer />}
       {showMobileBar ? <MobileBar /> : null}
       <Toaster position="top-center" />
     </QueryClientProvider>

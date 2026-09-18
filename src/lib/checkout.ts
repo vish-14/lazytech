@@ -22,6 +22,9 @@ export type CheckoutCustomer = {
   name: string;
   email: string;
   phone: string;
+  college?: string;
+  role?: string;
+  productType?: "workshop-01" | "lazypass";
 };
 
 /** Creates an order, opens Razorpay checkout and verifies the payment server-side. */
@@ -48,17 +51,30 @@ export async function startCheckout(
     keyId: string;
   };
 
+  const description = customer.productType === "workshop-01" 
+    ? "LazyTech Workshop #01" 
+    : "Lazy Pass · 1 building year";
+
   return new Promise((resolve) => {
+    import("@/lib/tracking").then(({ trackEvent }) => {
+      trackEvent("RAZORPAY_OPENED", { product_type: customer.productType });
+    });
+
     const rzp = new window.Razorpay({
       key: order.keyId,
       order_id: order.orderId,
       amount: order.amount,
       currency: order.currency,
       name: "LazyTech",
-      description: "Lazy Pass · 1 building year",
+      description: description,
       prefill: { name: customer.name, email: customer.email, contact: customer.phone },
       theme: { color: "#E50027" },
-      modal: { ondismiss: () => resolve({ status: "dismissed" }) },
+      modal: { 
+        ondismiss: () => {
+          import("@/lib/tracking").then(({ trackEvent }) => trackEvent("PAYMENT_CANCELLED", { product_type: customer.productType }));
+          resolve({ status: "dismissed" });
+        } 
+      },
       handler: async (response: Record<string, string>) => {
         const verify = await fetch("/api/razorpay/verify", {
           method: "POST",
@@ -66,6 +82,7 @@ export async function startCheckout(
           body: JSON.stringify(response),
         });
         if (!verify.ok) {
+          import("@/lib/tracking").then(({ trackEvent }) => trackEvent("PAYMENT_FAILED", { product_type: customer.productType }));
           resolve({ status: "error", message: "We couldn't confirm the payment." });
           return;
         }
@@ -73,9 +90,10 @@ export async function startCheckout(
         resolve({ status: "paid", builderNumber: body.builderNumber ?? null });
       },
     });
-    rzp.on("payment.failed", () =>
-      resolve({ status: "error", message: "Payment failed. Please try again." }),
-    );
+    rzp.on("payment.failed", () => {
+      import("@/lib/tracking").then(({ trackEvent }) => trackEvent("PAYMENT_FAILED", { product_type: customer.productType }));
+      resolve({ status: "error", message: "Payment failed. Please try again." });
+    });
     rzp.open();
   });
 }
