@@ -94,7 +94,7 @@ function BuildAiAgentsEvent() {
               href="#register" 
               className="inline-flex items-center justify-center rounded-md bg-[#080808] px-4 py-2 text-sm font-medium text-[#F5F5F0] transition-colors hover:bg-[#080808]/90"
             >
-              BOOK FOR ₹59
+              Register Now
               <ArrowRight className="ml-2 h-4 w-4" />
             </a>
           </nav>
@@ -104,7 +104,7 @@ function BuildAiAgentsEvent() {
               href="#register" 
               className="inline-flex items-center justify-center rounded-md bg-[#080808] px-4 py-1.5 text-xs font-medium text-[#F5F5F0]"
             >
-              ₹59
+              Register Now
             </a>
           </div>
         </div>
@@ -306,39 +306,76 @@ function BuildAiAgentsEvent() {
           <h2 className="text-2xl font-bold tracking-tight mb-10">WHAT YOU'LL BUILD</h2>
           
           <div className="bg-white border border-[#080808]/10 rounded-2xl p-8 lg:p-12">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4 max-w-4xl mx-auto">
-              <div className="flex flex-col items-center text-center gap-3">
-                <div className="w-16 h-16 rounded-2xl bg-[#080808]/5 flex items-center justify-center text-xl font-bold">1</div>
-                <div className="font-semibold">YOUR IDEA</div>
-              </div>
-              <ArrowRight className="hidden md:block h-5 w-5 text-[#080808]/20" />
-              <div className="md:hidden h-6 w-px bg-[#080808]/20" />
+            <div className="flex flex-col md:flex-row items-start justify-between gap-8 md:gap-4 max-w-5xl mx-auto">
               
-              <div className="flex flex-col items-center text-center gap-3">
-                <div className="w-16 h-16 rounded-2xl bg-[#E5092F]/10 text-[#E5092F] flex items-center justify-center text-xl font-bold">2</div>
-                <div className="font-semibold text-[#E5092F]">AI AGENT</div>
+              <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4 flex-1">
+                <div className="w-16 h-16 rounded-2xl bg-[#080808]/5 flex items-center justify-center text-xl font-bold shrink-0">1</div>
+                <div>
+                  <div className="font-bold text-lg tracking-tight mb-2">YOUR IDEA</div>
+                  <p className="text-[#080808]/60 text-sm leading-relaxed">Bring a real problem. We'll define the scope, write the prompt, and design the logical flow of your first automation.</p>
+                </div>
               </div>
-              <ArrowRight className="hidden md:block h-5 w-5 text-[#080808]/20" />
-              <div className="md:hidden h-6 w-px bg-[#080808]/20" />
               
-              <div className="flex flex-col items-center text-center gap-3">
-                <div className="w-16 h-16 rounded-2xl bg-[#080808]/5 flex items-center justify-center text-xl font-bold">3</div>
-                <div className="font-semibold">TOOLS</div>
+              <div className="hidden md:flex flex-col justify-center h-16 shrink-0">
+                <ArrowRight className="h-5 w-5 text-[#080808]/20" />
               </div>
-              <ArrowRight className="hidden md:block h-5 w-5 text-[#080808]/20" />
-              <div className="md:hidden h-6 w-px bg-[#080808]/20" />
+              <div className="md:hidden w-full flex justify-center">
+                <div className="h-8 w-px bg-[#080808]/20" />
+              </div>
+              
+              <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4 flex-1">
+                <div className="w-16 h-16 rounded-2xl bg-[#E5092F]/10 text-[#E5092F] flex items-center justify-center text-xl font-bold shrink-0">2</div>
+                <div>
+                  <div className="font-bold text-lg tracking-tight text-[#E5092F] mb-2">AI AGENT</div>
+                  <p className="text-[#080808]/60 text-sm leading-relaxed">Build the core "brain". Give it persona, constraints, and instructions so it acts exactly as you want it to.</p>
+                </div>
+              </div>
+              
+              <div className="hidden md:flex flex-col justify-center h-16 shrink-0">
+                <ArrowRight className="h-5 w-5 text-[#080808]/20" />
+              </div>
+              <div className="md:hidden w-full flex justify-center">
+                <div className="h-8 w-px bg-[#080808]/20" />
+              </div>
+              
+              <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4 flex-1">
+                <div className="w-16 h-16 rounded-2xl bg-[#080808]/5 flex items-center justify-center text-xl font-bold shrink-0">3</div>
+                <div>
+                  <div className="font-bold text-lg tracking-tight mb-2">TOOLS</div>
+                  <p className="text-[#080808]/60 text-sm leading-relaxed">Connect external capabilities. APIs, web scraping, email sending—give your agent the hands it needs.</p>
+                </div>
+              </div>
+              
+              <div className="hidden md:flex flex-col justify-center h-16 shrink-0">
+                <ArrowRight className="h-5 w-5 text-[#080808]/20" />
+              </div>
+              <div className="md:hidden w-full flex justify-center">
+                <div className="h-8 w-px bg-[#080808]/20" />
+              </div>
 
-              <div className="flex flex-col items-center text-center gap-3">
-                <div className="w-16 h-16 rounded-2xl bg-[#080808]/5 flex items-center justify-center text-xl font-bold">4</div>
-                <div className="font-semibold">ACTION</div>
+              <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4 flex-1">
+                <div className="w-16 h-16 rounded-2xl bg-[#080808]/5 flex items-center justify-center text-xl font-bold shrink-0">4</div>
+                <div>
+                  <div className="font-bold text-lg tracking-tight mb-2">ACTION</div>
+                  <p className="text-[#080808]/60 text-sm leading-relaxed">Test the execution. Watch the agent think, pick the right tool, and execute the task autonomously.</p>
+                </div>
               </div>
-              <ArrowRight className="hidden md:block h-5 w-5 text-[#080808]/20" />
-              <div className="md:hidden h-6 w-px bg-[#080808]/20" />
+              
+              <div className="hidden md:flex flex-col justify-center h-16 shrink-0">
+                <ArrowRight className="h-5 w-5 text-[#080808]/20" />
+              </div>
+              <div className="md:hidden w-full flex justify-center">
+                <div className="h-8 w-px bg-[#080808]/20" />
+              </div>
 
-              <div className="flex flex-col items-center text-center gap-3">
-                <div className="w-16 h-16 rounded-2xl bg-[#080808] text-white flex items-center justify-center text-xl font-bold">5</div>
-                <div className="font-semibold">RESULT</div>
+              <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4 flex-1">
+                <div className="w-16 h-16 rounded-2xl bg-[#080808] text-white flex items-center justify-center text-xl font-bold shrink-0">5</div>
+                <div>
+                  <div className="font-bold text-lg tracking-tight mb-2">RESULT</div>
+                  <p className="text-[#080808]/60 text-sm leading-relaxed">A fully working prototype ready to be integrated into your actual workflow or app.</p>
+                </div>
               </div>
+              
             </div>
           </div>
         </div>
