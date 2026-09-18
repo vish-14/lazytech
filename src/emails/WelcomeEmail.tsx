@@ -34,6 +34,9 @@ export const WelcomeEmail = ({ name = "Builder" }: WelcomeEmailProps) => {
               Further details, schedules, and dashboard access will be unlocked soon.
             </strong>
           </Text>
+          <Text style={text}>
+            In the meantime, please join our official WhatsApp group for important announcements and further updates:
+          </Text>
           <Section style={btnContainer}>
             <Button style={button} href="https://chat.whatsapp.com/GFTwEnY8pjB1zZywAHsYmq?s=cl&p=a&mlu=4">
               Join WhatsApp Group
