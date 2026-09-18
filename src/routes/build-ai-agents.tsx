@@ -119,9 +119,9 @@ function BuildAiAgentsEvent() {
           <div className="w-full lg:w-[55%] shrink-0">
             <div className="relative rounded-[16px] overflow-hidden border border-[#080808]/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group transform transition-transform duration-500 hover:scale-[1.01]">
               <img 
-                src="https://www.image2url.com/r2/default/images/1789758266221-e53954d4-e50f-47e8-b672-51f0e7e8fb4d.jpg" 
+                src="https://www.image2url.com/r2/default/images/1789759225795-5af46ccc-31c5-4e88-aad6-6fd899c4ce30.png" 
                 alt="Build Your First AI Agent - LazyTech Workshop #01"
-                className="w-full h-auto object-cover aspect-[4/5] md:aspect-[1/1] lg:aspect-[4/5] bg-gray-100"
+                className="w-full h-auto object-cover aspect-square bg-gray-100"
               />
             </div>
           </div>
@@ -197,7 +197,10 @@ function BuildAiAgentsEvent() {
                   <div className="bg-white border border-[#080808]/10 rounded-2xl p-6 md:p-8 shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
                     <div className="flex items-baseline justify-between mb-6">
                       <h2 className="text-xl font-bold tracking-tight">Register</h2>
-                      <div className="text-2xl font-bold text-[#080808]">₹59</div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg font-medium text-[#080808]/40 line-through">₹999</span>
+                        <div className="text-2xl font-bold text-[#E5092F]">₹59</div>
+                      </div>
                     </div>
                     
                     <form onSubmit={handleCheckout} className="space-y-4">
@@ -576,7 +579,9 @@ function BuildAiAgentsEvent() {
           <div className="flex flex-col items-center gap-4 text-sm font-medium text-[#080808]/60 mb-8">
             <div>27 SEPTEMBER 2026</div>
             <div>10:00 AM — 1:00 PM IST</div>
-            <div>ONLINE · ₹59</div>
+            <div>
+              ONLINE · <span className="line-through opacity-60 mr-1">₹999</span> <span className="text-[#E5092F] font-bold">₹59</span>
+            </div>
           </div>
           <a
             href="#register"
@@ -596,7 +601,10 @@ function BuildAiAgentsEvent() {
           href="#register"
           className="flex w-full items-center justify-center gap-2 bg-[#080808] text-white rounded-xl py-3.5 font-medium shadow-lg"
         >
-          <span className="font-bold opacity-70 border-r border-white/20 pr-3 mr-1">₹59</span>
+          <div className="flex items-center border-r border-white/20 pr-3 mr-1">
+            <span className="opacity-50 line-through text-xs mr-2">₹999</span>
+            <span className="font-bold text-[#E5092F]">₹59</span>
+          </div>
           Register Now →
         </a>
       </div>
