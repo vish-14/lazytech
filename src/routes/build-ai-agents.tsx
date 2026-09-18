@@ -119,7 +119,7 @@ function BuildAiAgentsEvent() {
           <div className="w-full lg:w-[55%] shrink-0">
             <div className="relative rounded-[16px] overflow-hidden border border-[#080808]/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group transform transition-transform duration-500 hover:scale-[1.01]">
               <img 
-                src="/poster.png" 
+                src="https://www.image2url.com/r2/default/images/1789758266221-e53954d4-e50f-47e8-b672-51f0e7e8fb4d.jpg" 
                 alt="Build Your First AI Agent - LazyTech Workshop #01"
                 className="w-full h-auto object-cover aspect-[4/5] md:aspect-[1/1] lg:aspect-[4/5] bg-gray-100"
               />
