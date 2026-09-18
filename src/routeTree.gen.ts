@@ -24,6 +24,7 @@ import { Route as AdminAnalyticsRouteImport } from './routes/admin/analytics'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as BuildsIndexRouteImport } from './routes/builds.index'
 import { Route as BuildsWeekRouteImport } from './routes/builds.$week'
+import { Route as RShortCodeRouteImport } from './routes/r.$shortCode'
 import { Route as AdminUtmLinksIndexRouteImport } from './routes/admin/utm-links.index'
 import { Route as AdminUtmLinksShortCodeRouteImport } from './routes/admin/utm-links.$shortCode'
 import { Route as AdminUtmLinksNewRouteImport } from './routes/admin/utm-links.new'
@@ -31,7 +32,6 @@ import { Route as ApiPublicEventsRouteImport } from './routes/api/public/events'
 import { Route as ApiPublicRazorpayWebhookRouteImport } from './routes/api/public/razorpay-webhook'
 import { Route as ApiRazorpayCreateOrderRouteImport } from './routes/api/razorpay/create-order'
 import { Route as ApiRazorpayVerifyRouteImport } from './routes/api/razorpay/verify'
-import { Route as ApiPublicRShortCodeRouteImport } from './routes/api/public/r.$shortCode'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -108,6 +108,11 @@ const BuildsWeekRoute = BuildsWeekRouteImport.update({
   path: '/builds/$week',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RShortCodeRoute = RShortCodeRouteImport.update({
+  id: '/r/$shortCode',
+  path: '/r/$shortCode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminUtmLinksIndexRoute = AdminUtmLinksIndexRouteImport.update({
   id: '/utm-links/',
   path: '/utm-links/',
@@ -144,11 +149,6 @@ const ApiRazorpayVerifyRoute = ApiRazorpayVerifyRouteImport.update({
   path: '/api/razorpay/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicRShortCodeRoute = ApiPublicRShortCodeRouteImport.update({
-  id: '/api/public/r/$shortCode',
-  path: '/api/public/r/$shortCode',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -165,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
   '/builds/$week': typeof BuildsWeekRoute
+  '/r/$shortCode': typeof RShortCodeRoute
   '/builds/': typeof BuildsIndexRoute
   '/admin/utm-links/$shortCode': typeof AdminUtmLinksShortCodeRoute
   '/admin/utm-links/new': typeof AdminUtmLinksNewRoute
@@ -173,7 +174,6 @@ export interface FileRoutesByFullPath {
   '/api/razorpay/create-order': typeof ApiRazorpayCreateOrderRoute
   '/api/razorpay/verify': typeof ApiRazorpayVerifyRoute
   '/admin/utm-links/': typeof AdminUtmLinksIndexRoute
-  '/api/public/r/$shortCode': typeof ApiPublicRShortCodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -190,6 +190,7 @@ export interface FileRoutesByTo {
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
   '/builds/$week': typeof BuildsWeekRoute
+  '/r/$shortCode': typeof RShortCodeRoute
   '/builds': typeof BuildsIndexRoute
   '/admin/utm-links/$shortCode': typeof AdminUtmLinksShortCodeRoute
   '/admin/utm-links/new': typeof AdminUtmLinksNewRoute
@@ -198,7 +199,6 @@ export interface FileRoutesByTo {
   '/api/razorpay/create-order': typeof ApiRazorpayCreateOrderRoute
   '/api/razorpay/verify': typeof ApiRazorpayVerifyRoute
   '/admin/utm-links': typeof AdminUtmLinksIndexRoute
-  '/api/public/r/$shortCode': typeof ApiPublicRShortCodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -216,6 +216,7 @@ export interface FileRoutesById {
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
   '/builds/$week': typeof BuildsWeekRoute
+  '/r/$shortCode': typeof RShortCodeRoute
   '/builds/': typeof BuildsIndexRoute
   '/admin/utm-links/$shortCode': typeof AdminUtmLinksShortCodeRoute
   '/admin/utm-links/new': typeof AdminUtmLinksNewRoute
@@ -224,7 +225,6 @@ export interface FileRoutesById {
   '/api/razorpay/create-order': typeof ApiRazorpayCreateOrderRoute
   '/api/razorpay/verify': typeof ApiRazorpayVerifyRoute
   '/admin/utm-links/': typeof AdminUtmLinksIndexRoute
-  '/api/public/r/$shortCode': typeof ApiPublicRShortCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -243,6 +243,7 @@ export interface FileRouteTypes {
     | '/admin/analytics'
     | '/admin/login'
     | '/builds/$week'
+    | '/r/$shortCode'
     | '/builds/'
     | '/admin/utm-links/$shortCode'
     | '/admin/utm-links/new'
@@ -251,7 +252,6 @@ export interface FileRouteTypes {
     | '/api/razorpay/create-order'
     | '/api/razorpay/verify'
     | '/admin/utm-links/'
-    | '/api/public/r/$shortCode'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -268,6 +268,7 @@ export interface FileRouteTypes {
     | '/admin/analytics'
     | '/admin/login'
     | '/builds/$week'
+    | '/r/$shortCode'
     | '/builds'
     | '/admin/utm-links/$shortCode'
     | '/admin/utm-links/new'
@@ -276,7 +277,6 @@ export interface FileRouteTypes {
     | '/api/razorpay/create-order'
     | '/api/razorpay/verify'
     | '/admin/utm-links'
-    | '/api/public/r/$shortCode'
   id:
     | '__root__'
     | '/'
@@ -293,6 +293,7 @@ export interface FileRouteTypes {
     | '/admin/analytics'
     | '/admin/login'
     | '/builds/$week'
+    | '/r/$shortCode'
     | '/builds/'
     | '/admin/utm-links/$shortCode'
     | '/admin/utm-links/new'
@@ -301,7 +302,6 @@ export interface FileRouteTypes {
     | '/api/razorpay/create-order'
     | '/api/razorpay/verify'
     | '/admin/utm-links/'
-    | '/api/public/r/$shortCode'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -317,12 +317,12 @@ export interface RootRouteChildren {
   RefundPolicyRoute: typeof RefundPolicyRoute
   TermsRoute: typeof TermsRoute
   BuildsWeekRoute: typeof BuildsWeekRoute
+  RShortCodeRoute: typeof RShortCodeRoute
   BuildsIndexRoute: typeof BuildsIndexRoute
   ApiPublicEventsRoute: typeof ApiPublicEventsRoute
   ApiPublicRazorpayWebhookRoute: typeof ApiPublicRazorpayWebhookRoute
   ApiRazorpayCreateOrderRoute: typeof ApiRazorpayCreateOrderRoute
   ApiRazorpayVerifyRoute: typeof ApiRazorpayVerifyRoute
-  ApiPublicRShortCodeRoute: typeof ApiPublicRShortCodeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -432,6 +432,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BuildsWeekRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/r/$shortCode': {
+      id: '/r/$shortCode'
+      path: '/r/$shortCode'
+      fullPath: '/r/$shortCode'
+      preLoaderRoute: typeof RShortCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/utm-links/': {
       id: '/admin/utm-links/'
       path: '/utm-links'
@@ -481,13 +488,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiRazorpayVerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/r/$shortCode': {
-      id: '/api/public/r/$shortCode'
-      path: '/api/public/r/$shortCode'
-      fullPath: '/api/public/r/$shortCode'
-      preLoaderRoute: typeof ApiPublicRShortCodeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -522,12 +522,12 @@ const rootRouteChildren: RootRouteChildren = {
   RefundPolicyRoute: RefundPolicyRoute,
   TermsRoute: TermsRoute,
   BuildsWeekRoute: BuildsWeekRoute,
+  RShortCodeRoute: RShortCodeRoute,
   BuildsIndexRoute: BuildsIndexRoute,
   ApiPublicEventsRoute: ApiPublicEventsRoute,
   ApiPublicRazorpayWebhookRoute: ApiPublicRazorpayWebhookRoute,
   ApiRazorpayCreateOrderRoute: ApiRazorpayCreateOrderRoute,
   ApiRazorpayVerifyRoute: ApiRazorpayVerifyRoute,
-  ApiPublicRShortCodeRoute: ApiPublicRShortCodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getSupabaseAdmin } from "@/lib/supabase-admin.server";
 
-export const Route = createFileRoute("/api/public/r/$shortCode")({
+export const Route = createFileRoute("/r/$shortCode")({
   server: {
     handlers: {
       GET: async ({ request, params }) => {
