@@ -140,6 +140,12 @@ function JoinPage() {
     }
     return null;
   });
+  const [customerName, setCustomerName] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("lazytech_customer_name") || "";
+    }
+    return "";
+  });
   const seats = useSeats();
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -235,10 +241,12 @@ function JoinPage() {
     if (result.status === "paid") {
       setPaid(true);
       setBuilderNumber(result.builderNumber);
+      setCustomerName(d.name);
       setDone(true);
       if (typeof window !== "undefined") {
         window.scrollTo({ top: 0, behavior: "smooth" });
         localStorage.setItem("lazytech_paid", "true");
+        localStorage.setItem("lazytech_customer_name", d.name);
         if (result.builderNumber) {
           localStorage.setItem("lazytech_builder_number", String(result.builderNumber));
         }
@@ -328,38 +336,62 @@ function JoinPage() {
                       // Details
                       doc.setTextColor(50, 50, 50);
                       doc.setFontSize(11);
-                      doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 60);
-                      doc.text(`Builder ID: #${String(builderNumber || 0).padStart(3, "0")}`, 145, 60);
+                      doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 55);
+                      doc.text(`Time: ${new Date().toLocaleTimeString()}`, 20, 62);
+                      doc.text(`Builder ID: #${String(builderNumber || 0).padStart(3, "0")}`, 145, 55);
+                      doc.text(`Payment Mode: Online (Razorpay)`, 145, 62);
+                      
+                      if (customerName) {
+                        doc.setFont("helvetica", "bold");
+                        doc.text(`Billed To:`, 20, 75);
+                        doc.setFont("helvetica", "normal");
+                        doc.text(customerName, 20, 82);
+                      }
                       
                       // Separator
                       doc.setDrawColor(200, 200, 200);
-                      doc.line(20, 70, 190, 70);
+                      doc.line(20, 90, 190, 90);
                       
                       // Table header
                       doc.setFont("helvetica", "bold");
-                      doc.text("DESCRIPTION", 20, 85);
-                      doc.text("AMOUNT", 160, 85);
+                      doc.text("DESCRIPTION", 20, 105);
+                      doc.text("AMOUNT", 160, 105);
                       
                       // Table item
                       doc.setFont("helvetica", "normal");
-                      doc.text("Lazy Pass - 1 Building Year", 20, 95);
-                      doc.text(`INR ${BRAND.price}.00`, 160, 95);
+                      doc.text("Lazy Pass - 1 Building Year", 20, 115);
+                      doc.text(`INR ${BRAND.price}.00`, 160, 115);
                       
                       // Separator
-                      doc.line(20, 105, 190, 105);
+                      doc.line(20, 125, 190, 125);
                       
                       // Total
                       doc.setFont("helvetica", "bold");
-                      doc.text("TOTAL PAID", 120, 120);
+                      doc.text("TOTAL PAID", 120, 140);
                       doc.setTextColor(255, 60, 60);
                       doc.setFontSize(14);
-                      doc.text(`INR ${BRAND.price}.00`, 160, 120);
+                      doc.text(`INR ${BRAND.price}.00`, 160, 140);
                       
                       // Footer
                       doc.setTextColor(150, 150, 150);
                       doc.setFont("helvetica", "normal");
                       doc.setFontSize(10);
-                      doc.text("Thank you for joining the club. See you this weekend.", 20, 150);
+                      doc.text("Thank you for joining the club. See you this weekend.", 20, 175);
+                      
+                      // Load QR Code
+                      await new Promise((resolve) => {
+                        const img = new Image();
+                        img.crossOrigin = "Anonymous";
+                        img.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://chat.whatsapp.com/GFTwEnY8pjB1zZywAHsYmq?s=cl&p=a&mlu=4";
+                        img.onload = () => {
+                          doc.addImage(img, "PNG", 160, 150, 30, 30);
+                          doc.setTextColor(100, 100, 100);
+                          doc.setFontSize(8);
+                          doc.text("Scan to join WhatsApp", 157, 185);
+                          resolve(true);
+                        };
+                        img.onerror = () => resolve(false);
+                      });
                       
                       doc.save("lazytech-receipt.pdf");
                     }}
