@@ -243,7 +243,7 @@ function BuildAiAgentsEvent() {
                       <h2 className="text-xl font-bold tracking-tight">Register</h2>
                       <div className="flex items-center gap-2">
                         <span className="text-lg font-medium text-[#080808]/40 line-through">₹999</span>
-                        <div className="text-2xl font-bold text-[#E5092F]">₹1</div>
+                        <div className="text-2xl font-bold text-[#E5092F]">₹59</div>
                       </div>
                     </div>
                     
@@ -624,7 +624,7 @@ function BuildAiAgentsEvent() {
             <div>27 SEPTEMBER 2026</div>
             <div>10:00 AM — 1:00 PM IST</div>
             <div>
-              ONLINE · <span className="line-through opacity-60 mr-1">₹999</span> <span className="text-[#E5092F] font-bold">₹1</span>
+              ONLINE · <span className="line-through opacity-60 mr-1">₹999</span> <span className="text-[#E5092F] font-bold">₹59</span>
             </div>
           </div>
           <a
@@ -657,7 +657,7 @@ function BuildAiAgentsEvent() {
           >
             <div className="flex items-center border-r border-white/20 pr-3 mr-1">
               <span className="opacity-50 line-through text-xs mr-2">₹999</span>
-              <span className="font-bold text-[#E5092F]">₹1</span>
+              <span className="font-bold text-[#E5092F]">₹59</span>
             </div>
             Register Now →
           </button>
