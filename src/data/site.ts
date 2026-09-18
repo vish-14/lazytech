@@ -3,7 +3,7 @@ export const BRAND = {
   tagline: "LEARN LESS. BUILD MORE.",
   promise: "Build something practical every weekend.",
   system: "52 weeks. 52 builds.",
-  price: 499,
+  price: 1,
   regularPrice: 1499,
   email: "tosritrilingatechnologies@gmail.com",
   instagram: "https://instagram.com",
