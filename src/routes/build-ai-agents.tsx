@@ -597,7 +597,7 @@ function BuildAiAgentsEvent() {
           className="flex w-full items-center justify-center gap-2 bg-[#080808] text-white rounded-xl py-3.5 font-medium shadow-lg"
         >
           <span className="font-bold opacity-70 border-r border-white/20 pr-3 mr-1">₹59</span>
-          BOOK YOUR SEAT →
+          Register Now →
         </a>
       </div>
 
