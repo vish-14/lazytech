@@ -29,6 +29,11 @@ export const WelcomeEmail = ({ name = "Builder" }: WelcomeEmailProps) => {
             us.
           </Text>
           <Text style={text}>
+            <strong>
+              Please note that your very first weekend workshop for Batch 01 will officially commence on October 11th, 2026.
+            </strong>
+          </Text>
+          <Text style={text}>
             We are preparing everything for you right now.{" "}
             <strong>
               Further details, schedules, and dashboard access will be unlocked soon.

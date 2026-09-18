@@ -3,7 +3,7 @@ export const BRAND = {
   tagline: "LEARN LESS. BUILD MORE.",
   promise: "Build something practical every weekend.",
   system: "52 weeks. 52 builds.",
-  price: 1,
+  price: 499,
   regularPrice: 1499,
   senderEmail: "hello@greatskills.co.in",
   email: "tosritrilingatechnologies@gmail.com",
