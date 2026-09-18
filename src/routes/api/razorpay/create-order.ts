@@ -14,7 +14,7 @@ const bodySchema = z.object({
 });
 
 const PRODUCT_PRICES = {
-  "workshop-01": 5900, // ₹59
+  "workshop-01": 100, // ₹1 (Testing)
   "lazypass": 49900,   // ₹499
 };
 

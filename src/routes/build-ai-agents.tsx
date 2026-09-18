@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { startCheckout, type CheckoutCustomer } from "@/lib/checkout";
 import { toast } from "sonner";
-import { ArrowRight, Calendar, Clock, Globe, ArrowUpRight, CheckCircle2, MonitorPlay } from "lucide-react";
+import { ArrowRight, Calendar, Clock, Globe, ArrowUpRight, CheckCircle2, MonitorPlay, MessageCircle } from "lucide-react";
 import * as Accordion from "@radix-ui/react-accordion";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/build-ai-agents")({
   component: BuildAiAgentsEvent,
@@ -171,35 +172,64 @@ function BuildAiAgentsEvent() {
                 
                 {/* REGISTRATION CARD */}
                 {success ? (
-                  <div className="bg-white border border-[#080808]/10 rounded-2xl p-6 md:p-8 shadow-sm">
-                    <div className="flex items-center gap-3 text-green-600 mb-4">
-                      <CheckCircle2 className="h-6 w-6" />
-                      <h2 className="text-xl font-bold">YOU'RE IN.</h2>
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="bg-white border border-[#080808]/10 rounded-2xl p-8 shadow-2xl relative overflow-hidden"
+                  >
+                    {/* Background glow effect */}
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-green-50/50 to-transparent pointer-events-none" />
+                    
+                    <div className="relative z-10 flex flex-col items-center text-center">
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.2 }}
+                        className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6"
+                      >
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.4 }}
+                        >
+                          <CheckCircle2 className="h-10 w-10 text-green-600" />
+                        </motion.div>
+                      </motion.div>
+                      
+                      <h2 className="text-3xl font-bold tracking-tight mb-3">Registration Confirmed!</h2>
+                      <p className="text-[#080808]/70 mb-8 font-medium max-w-sm">
+                        You're officially on the roster for Workshop #01. We've sent a welcome email with all details to <span className="text-[#080808] font-bold">{customer.email}</span>.
+                      </p>
+                      
+                      <div className="w-full space-y-3">
+                        <a
+                          href="https://chat.whatsapp.com/FpAoGu3KCw8662LtHqPrZ0?s=cl&p=a&mlu=4"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white rounded-xl py-4 font-bold transition-all hover:bg-[#25D366]/90 shadow-lg shadow-[#25D366]/20"
+                        >
+                          <MessageCircle className="h-5 w-5" />
+                          Join the WhatsApp Group
+                        </a>
+                        
+                        <button
+                          onClick={generateICS}
+                          className="w-full flex items-center justify-center gap-2 bg-[#F5F5F0] text-[#080808] border border-[#080808]/10 rounded-xl py-4 font-bold transition-colors hover:bg-[#080808]/5"
+                        >
+                          <Calendar className="h-5 w-5" />
+                          Add to Calendar
+                        </button>
+                      </div>
                     </div>
-                    <p className="text-[#080808]/70 mb-6 font-medium">
-                      Workshop #01 registration confirmed. We've sent the details to {customer.email}.
-                    </p>
-                    <div className="bg-[#F5F5F0] rounded-xl p-4 mb-6 text-sm font-mono text-[#080808]/60">
-                      BUILD YOUR FIRST AI AGENT<br/>
-                      27 September 2026<br/>
-                      10:00 AM – 1:00 PM IST<br/>
-                      Online
-                    </div>
-                    <button
-                      onClick={generateICS}
-                      className="w-full flex items-center justify-center gap-2 bg-[#080808] text-white rounded-xl py-3.5 font-medium transition-colors hover:bg-[#080808]/80"
-                    >
-                      <Calendar className="h-4 w-4" />
-                      Add to Calendar
-                    </button>
-                  </div>
+                  </motion.div>
                 ) : (
                   <div className="bg-white border border-[#080808]/10 rounded-2xl p-6 md:p-8 shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
                     <div className="flex items-baseline justify-between mb-6">
                       <h2 className="text-xl font-bold tracking-tight">Register</h2>
                       <div className="flex items-center gap-2">
                         <span className="text-lg font-medium text-[#080808]/40 line-through">₹999</span>
-                        <div className="text-2xl font-bold text-[#E5092F]">₹59</div>
+                        <div className="text-2xl font-bold text-[#E5092F]">₹1</div>
                       </div>
                     </div>
                     
@@ -580,7 +610,7 @@ function BuildAiAgentsEvent() {
             <div>27 SEPTEMBER 2026</div>
             <div>10:00 AM — 1:00 PM IST</div>
             <div>
-              ONLINE · <span className="line-through opacity-60 mr-1">₹999</span> <span className="text-[#E5092F] font-bold">₹59</span>
+              ONLINE · <span className="line-through opacity-60 mr-1">₹999</span> <span className="text-[#E5092F] font-bold">₹1</span>
             </div>
           </div>
           <a
@@ -603,7 +633,7 @@ function BuildAiAgentsEvent() {
         >
           <div className="flex items-center border-r border-white/20 pr-3 mr-1">
             <span className="opacity-50 line-through text-xs mr-2">₹999</span>
-            <span className="font-bold text-[#E5092F]">₹59</span>
+            <span className="font-bold text-[#E5092F]">₹1</span>
           </div>
           Register Now →
         </a>
