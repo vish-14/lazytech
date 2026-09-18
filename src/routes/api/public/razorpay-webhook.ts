@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
 import WelcomeEmail from "@/emails/WelcomeEmail";
+import { BRAND } from "@/data/site";
 
 export const Route = createFileRoute("/api/public/razorpay-webhook")({
   server: {
@@ -86,7 +87,7 @@ export const Route = createFileRoute("/api/public/razorpay-webhook")({
 
               // Send Welcome Email
               await resend.emails.send({
-                from: "onboarding@resend.dev",
+                from: BRAND.senderEmail,
                 to: [payment.email],
                 subject: "Welcome to LazyTech! Your payment is confirmed",
                 react: React.createElement(WelcomeEmail, { name: payment.name ?? "Builder" }),

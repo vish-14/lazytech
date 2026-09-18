@@ -5,6 +5,7 @@ export const BRAND = {
   system: "52 weeks. 52 builds.",
   price: 1,
   regularPrice: 1499,
+  senderEmail: "hello@greatskills.co.in",
   email: "tosritrilingatechnologies@gmail.com",
   instagram: "https://instagram.com",
   footnote: "A weekend builder community for people who prefer making to bookmarking.",

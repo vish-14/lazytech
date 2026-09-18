@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import * as React from "react";
 import WelcomeEmail from "@/emails/WelcomeEmail";
+import { BRAND } from "@/data/site";
 
 const bodySchema = z.object({
   razorpay_order_id: z.string().min(4).max(80),
@@ -75,7 +76,7 @@ export const Route = createFileRoute("/api/razorpay/verify")({
               }
 
               await resend.emails.send({
-                from: "onboarding@resend.dev",
+                from: BRAND.senderEmail,
                 to: [payment.email],
                 subject: "Welcome to LazyTech! Your payment is confirmed",
                 react: React.createElement(WelcomeEmail, { name: payment.name ?? "Builder" }),

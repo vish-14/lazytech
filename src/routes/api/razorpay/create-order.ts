@@ -51,7 +51,7 @@ export const Route = createFileRoute("/api/razorpay/create-order")({
               const sendAt = new Date(Date.now() + interval.ms).toISOString();
               try {
                 const res = await resend.emails.send({
-                  from: "onboarding@resend.dev",
+                  from: BRAND.senderEmail,
                   to: parsed.data.email,
                   subject: `Action Required: Complete your LazyTech Registration`,
                   react: React.createElement(ReminderEmail, {
