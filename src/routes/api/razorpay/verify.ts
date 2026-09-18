@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import * as React from "react";
 import WelcomeEmail from "@/emails/WelcomeEmail";
+import AiAgentsWorkshopEmail from "@/emails/AiAgentsWorkshopEmail";
 import { BRAND } from "@/data/site";
 import { cancelReminders } from "@/lib/scheduler.server";
 
@@ -85,11 +86,17 @@ export const Route = createFileRoute("/api/razorpay/verify")({
               // Cancel local scheduled reminders
               cancelReminders(razorpay_order_id);
 
+              const isWorkshop01 = payment.product_type === "workshop-01" || payment.notes?.productType === "workshop-01";
+              const emailSubject = isWorkshop01 ? "Welcome to LazyTech! Your Workshop #01 seat is confirmed" : "Welcome to LazyTech! Your payment is confirmed";
+              const emailTemplate = isWorkshop01 
+                ? React.createElement(AiAgentsWorkshopEmail, { name: payment.name ?? "Builder" })
+                : React.createElement(WelcomeEmail, { name: payment.name ?? "Builder" });
+
               await resend.emails.send({
                 from: BRAND.senderEmail,
                 to: [payment.email],
-                subject: "Welcome to LazyTech! Your payment is confirmed",
-                react: React.createElement(WelcomeEmail, { name: payment.name ?? "Builder" }),
+                subject: emailSubject,
+                react: emailTemplate,
               });
             } catch (emailErr) {
               console.error("Failed to send welcome email", emailErr);

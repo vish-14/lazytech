@@ -91,22 +91,36 @@ function BuildAiAgentsEvent() {
             <a href="#schedule" className="hover:text-[#080808] transition-colors">Schedule</a>
             <a href="#build" className="hover:text-[#080808] transition-colors">What You'll Build</a>
             <a href="#faq" className="hover:text-[#080808] transition-colors">FAQ</a>
-            <a 
-              href="#register" 
-              className="inline-flex items-center justify-center rounded-md bg-[#080808] px-4 py-2 text-sm font-medium text-[#F5F5F0] transition-colors hover:bg-[#080808]/90"
-            >
-              Register Now
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+            {success ? (
+              <button disabled className="inline-flex items-center justify-center rounded-md bg-[#25D366] px-4 py-2 text-sm font-bold text-white">
+                <CheckCircle2 className="mr-2 h-4 w-4" />
+                Registered
+              </button>
+            ) : (
+              <a 
+                href="#register" 
+                className="inline-flex items-center justify-center rounded-md bg-[#080808] px-4 py-2 text-sm font-medium text-[#F5F5F0] transition-colors hover:bg-[#080808]/90"
+              >
+                Register Now
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
+            )}
           </nav>
           
           <div className="md:hidden">
-            <a 
-              href="#register" 
-              className="inline-flex items-center justify-center rounded-md bg-[#080808] px-4 py-1.5 text-xs font-medium text-[#F5F5F0]"
-            >
-              Register Now
-            </a>
+            {success ? (
+              <button disabled className="inline-flex items-center justify-center rounded-md bg-[#25D366] px-4 py-1.5 text-xs font-bold text-white">
+                <CheckCircle2 className="mr-1.5 h-3 w-3" />
+                Registered
+              </button>
+            ) : (
+              <a 
+                href="#register" 
+                className="inline-flex items-center justify-center rounded-md bg-[#080808] px-4 py-1.5 text-xs font-medium text-[#F5F5F0]"
+              >
+                Register Now
+              </a>
+            )}
           </div>
         </div>
       </header>
@@ -233,7 +247,7 @@ function BuildAiAgentsEvent() {
                       </div>
                     </div>
                     
-                    <form onSubmit={handleCheckout} className="space-y-4">
+                    <form id="register-form" onSubmit={handleCheckout} className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-xs font-semibold text-[#080808]/60 uppercase tracking-wider mb-1.5">Full Name</label>
@@ -627,16 +641,27 @@ function BuildAiAgentsEvent() {
 
       {/* MOBILE STICKY BOTTOM BAR */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-[#080808]/10 md:hidden z-50">
-        <a 
-          href="#register"
-          className="flex w-full items-center justify-center gap-2 bg-[#080808] text-white rounded-xl py-3.5 font-medium shadow-lg"
-        >
-          <div className="flex items-center border-r border-white/20 pr-3 mr-1">
-            <span className="opacity-50 line-through text-xs mr-2">₹999</span>
-            <span className="font-bold text-[#E5092F]">₹1</span>
-          </div>
-          Register Now →
-        </a>
+        {success ? (
+          <button 
+            disabled
+            className="flex w-full items-center justify-center gap-2 bg-[#25D366] text-white rounded-xl py-3.5 font-bold shadow-lg"
+          >
+            <CheckCircle2 className="h-5 w-5" />
+            Registered
+          </button>
+        ) : (
+          <button 
+            type="submit"
+            form="register-form"
+            className="flex w-full items-center justify-center gap-2 bg-[#080808] text-white rounded-xl py-3.5 font-medium shadow-lg"
+          >
+            <div className="flex items-center border-r border-white/20 pr-3 mr-1">
+              <span className="opacity-50 line-through text-xs mr-2">₹999</span>
+              <span className="font-bold text-[#E5092F]">₹1</span>
+            </div>
+            Register Now →
+          </button>
+        )}
       </div>
 
     </div>
