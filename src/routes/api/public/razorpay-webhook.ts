@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import * as React from "react";
 import WelcomeEmail from "@/emails/WelcomeEmail";
 import { BRAND } from "@/data/site";
+import { cancelReminders } from "@/lib/scheduler.server";
 
 export const Route = createFileRoute("/api/public/razorpay-webhook")({
   server: {
@@ -77,13 +78,8 @@ export const Route = createFileRoute("/api/public/razorpay-webhook")({
               const { Resend } = await import("resend");
               const resend = new Resend(process.env["RESEND_API_KEY"]);
 
-              // Cancel scheduled reminders
-              const scheduledEmails = (payment.notes as Record<string, unknown>)?.scheduled_emails as string[];
-              if (Array.isArray(scheduledEmails)) {
-                for (const id of scheduledEmails) {
-                  await resend.emails.cancel(id).catch((e) => console.error("Cancel err", e));
-                }
-              }
+              // Cancel local scheduled reminders
+              if (orderId) cancelReminders(orderId);
 
               // Send Welcome Email
               await resend.emails.send({

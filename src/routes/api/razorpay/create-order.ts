@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { BRAND } from "@/data/site";
-import { Resend } from "resend";
-import ReminderEmail from "@/emails/ReminderEmail";
 import * as React from "react";
+import { scheduleReminders } from "@/lib/scheduler.server";
 
 const bodySchema = z.object({
   leadId: z.string().uuid().optional(),
@@ -31,44 +30,9 @@ export const Route = createFileRoute("/api/razorpay/create-order")({
             notes: { email: parsed.data.email, leadId: parsed.data.leadId ?? "" },
           });
 
-          // Schedule reminder emails
-          const scheduledIds: string[] = [];
+          // Schedule reminder emails natively in memory because Resend ignores scheduledAt on the free tier
           if (process.env.RESEND_API_KEY) {
-            const resend = new Resend(process.env.RESEND_API_KEY);
-            const intervals = [
-              { label: "in 5 minutes", ms: 5 * 60 * 1000 },
-              { label: "in 15 minutes", ms: 15 * 60 * 1000 },
-              { label: "in 45 minutes", ms: 45 * 60 * 1000 },
-              { label: "in 2 hours", ms: 2 * 60 * 60 * 1000 },
-              { label: "in 6 hours", ms: 6 * 60 * 60 * 1000 },
-              { label: "in 12 hours", ms: 12 * 60 * 60 * 1000 },
-              { label: "in 24 hours", ms: 24 * 60 * 60 * 1000 },
-              { label: "in 2 days", ms: 2 * 24 * 60 * 60 * 1000 },
-              { label: "in 3 days", ms: 3 * 24 * 60 * 60 * 1000 },
-            ];
-
-            const emailPromises = intervals.map(async (interval) => {
-              const sendAt = new Date(Date.now() + interval.ms).toISOString();
-              try {
-                const res = await resend.emails.send({
-                  from: BRAND.senderEmail,
-                  to: parsed.data.email,
-                  subject: `Action Required: Complete your LazyTech Registration`,
-                  react: React.createElement(ReminderEmail, {
-                    name: parsed.data.name,
-                    intervalText: interval.label,
-                  }),
-                  scheduledAt: sendAt,
-                });
-                if (res.data?.id) return res.data.id;
-              } catch (e) {
-                console.error("Failed to schedule email:", e);
-              }
-              return null;
-            });
-
-            const results = await Promise.all(emailPromises);
-            scheduledIds.push(...results.filter((id): id is string => id !== null));
+            scheduleReminders(order.id, parsed.data.email, parsed.data.name);
           }
 
           const supabaseAdmin = getSupabaseAdmin();
@@ -81,7 +45,7 @@ export const Route = createFileRoute("/api/razorpay/create-order")({
             currency: "INR",
             razorpay_order_id: order.id,
             status: "created",
-            notes: { scheduled_emails: scheduledIds },
+            notes: {},
           });
 
           return Response.json({

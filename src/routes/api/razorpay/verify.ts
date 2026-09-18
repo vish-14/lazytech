@@ -3,6 +3,7 @@ import { z } from "zod";
 import * as React from "react";
 import WelcomeEmail from "@/emails/WelcomeEmail";
 import { BRAND } from "@/data/site";
+import { cancelReminders } from "@/lib/scheduler.server";
 
 const bodySchema = z.object({
   razorpay_order_id: z.string().min(4).max(80),
@@ -67,13 +68,8 @@ export const Route = createFileRoute("/api/razorpay/verify")({
               const { Resend } = await import("resend");
               const resend = new Resend(process.env["RESEND_API_KEY"]);
 
-              // Cancel scheduled reminders
-              const scheduledEmails = (payment.notes as Record<string, unknown>)?.scheduled_emails as string[];
-              if (Array.isArray(scheduledEmails)) {
-                for (const id of scheduledEmails) {
-                  await resend.emails.cancel(id).catch((e) => console.error("Cancel err", e));
-                }
-              }
+              // Cancel local scheduled reminders
+              cancelReminders(razorpay_order_id);
 
               await resend.emails.send({
                 from: BRAND.senderEmail,
