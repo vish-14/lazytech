@@ -131,7 +131,7 @@ function BuildAiAgentsEvent() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
           
           {/* LEFT: POSTER */}
-          <div className="w-full lg:w-[55%] shrink-0">
+          <div className="w-full lg:w-[55%] shrink-0 lg:sticky lg:top-24 self-start">
             <div className="relative rounded-[16px] overflow-hidden border border-[#080808]/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] group transform transition-transform duration-500 hover:scale-[1.01]">
               <img 
                 src="https://www.image2url.com/r2/default/images/1789759225795-5af46ccc-31c5-4e88-aad6-6fd899c4ce30.png" 
